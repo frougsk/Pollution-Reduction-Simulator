@@ -1,0 +1,503 @@
+      /* custom font*/
+      @font-face {
+        font-family: 'Frutiger';
+        src: url('fonts/Frutiger Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Neuropol';
+        src: url('fonts/Neuropol.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Nulshock';
+        src: url('fonts/Nulshock Bd.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Conthrax';
+        src: url('fonts/Conthrax.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Sofachrome';
+        src: url('fonts/Sofachrome Rg It.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+      }\
+      
+      /* applying style per type label*/
+      body, .form-control, .btn, h1, label {
+        font-family: 'Frutiger' ,'Segoe UI', sans-serif;
+      }
+      
+      h1{
+        font-family: 'Sofachrome' ,'Segoe UI', sans-serif;
+        color: #0066CC; 
+        font-size: 42px; 
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8), 0 0 20px rgba(104, 176, 230, 0.3);
+      }
+      
+      h2{
+        font-family: 'Nulshock' ,'Segoe UI', sans-serif;
+        font-size: 18px; 
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8), 0 0 20px rgba(104, 176, 230, 0.3);
+        
+        background: linear-gradient(
+        90deg,
+        #3979FA 0%, 
+        #68B0E6 50%,   
+        #3979FA 100%
+        ); 
+      
+        -webkit-background-clip: text;
+        background-clip: text;
+      
+        color: transparent; 
+      }
+      
+      h4 {
+        font-family: 'Neuropol' ,'Segoe UI', sans-serif;
+        margin: 10px 0px 10px 0px;
+        font-size: 20px;
+        color: #1948a6;
+      }
+      
+      h3{
+        font-family: 'Neuropol' ,'Segoe UI', sans-serif;
+        margin: 10px 0px 10px 0px;
+        font-size: 30px;
+        color: #1948a6;
+      }
+      
+      h5, h6{
+        font-family: 'Conthrax' ,'Segoe UI', sans-serif;
+        margin: 10px 0px 10px 0px;
+        font-size: 20px;
+        color: #1948a6;
+      }
+      
+      p{
+        font-family: 'Frutiger' ,'Segoe UI', sans-serif;
+        margin: 10px 0px 10px 0px;
+        font-size: 12px;
+        color: #1948a6;
+      }
+      
+      /* Authentic Frutiger Aero Button CSS */
+      /* copied from https://makeaero.com/ */
+      .frutiger-aero-button {
+        /* OKLCH Color System for accurate colors */
+        --hue: 140;
+        --sat: 0.4;
+        --glow-intensity: 0.75;
+        
+        /* Color Variables */
+        --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
+        --bg: oklch(75% var(--sat) var(--hue) / 0.8);
+        --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
+        --bottom-glow: radial-gradient(
+          farthest-corner at bottom center,
+          rgba(255, 255, 255, var(--glow-intensity)),
+          transparent
+        );
+        
+        /* Base Styling */
+        background-color: var(--bg);
+        background: 
+          var(--bottom-glow),
+          linear-gradient(to bottom, var(--bg-dark), var(--bg));
+        
+        border: 1px solid var(--bg);
+        border-radius: 9999px;
+        
+        /* Shadows and Effects */
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+        
+        /* Typography */
+        color: var(--fg);
+        font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Segoe UI', system-ui, sans-serif;
+        font-weight: 700;
+        text-shadow: 0 2px 0.5em rgba(0, 0, 0, 0.2);
+        
+        /* Layout */
+        cursor: pointer;
+        position: relative;
+        transition: all 300ms ease;
+        
+        /* Prevent text selection */
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      
+      /* Top Highlight Effect */
+      .frutiger-aero-button::after {
+        content: '';
+        position: absolute;
+        top: 4%;
+        left: 0.75em;
+        width: calc(100% - 1.5em);
+        height: 40%;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.1)
+        );
+        border-radius: inherit;
+        transition: background 400ms ease;
+        pointer-events: none;
+      }
+      
+      /* Hover State */
+      .frutiger-aero-button:hover,
+      .frutiger-aero-button:focus {
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        transform: translateY(-1px);
+      }
+      
+      /* Active State */
+      .frutiger-aero-button:active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        transform: translateY(1px);
+      }
+      
+      /* Size Variations */
+      .frutiger-aero-button.small {
+        padding: 0.5em 1.5em;
+        font-size: 0.875rem;
+      }
+      
+      .frutiger-aero-button.medium {
+        padding: 0.75em 2em;
+        font-size: 1rem;
+      }
+      
+      .frutiger-aero-button.large {
+        padding: 1em 3em;
+        font-size: 1.125rem;
+      }
+      /* thanks aero maker! */
+      
+      /* background image */
+      body {
+        background-image: url('frutigerbg.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      .container-fluid {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 30px;
+        margin: 50px auto;
+        max-width: 90%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 80px rgba(255, 255, 255, 0.3);
+      }
+      
+      /* Animated background glow */
+      body::before {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: 
+          radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 75%),
+          radial-gradient(circle at 80% 80%, rgba(104, 176, 230, 0.08) 0%, transparent 75%),
+          radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 75%);
+        animation: float 20s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(30px, -30px) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) rotate(240deg); }
+      }
+      
+      /* Enhanced container with Vista-style chrome */
+      .container-fluid {
+        position: relative;
+        overflow: visible;
+      }
+      
+      .container-fluid::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background: linear-gradient(180deg, 
+          rgba(255, 255, 255, 0.4) 0%, 
+          rgba(255, 255, 255, 0.1) 100%);
+        border-radius: 30px 30px 0 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+      }
+      
+      /* Glossy sidebar enhancement */
+      .col-sm-3 {
+        background: linear-gradient(135deg, 
+          rgba(255, 255, 255, 0.4) 0%, 
+          rgba(240, 248, 255, 0.3) 100%);
+        backdrop-filter: blur(20px);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 30px;
+        box-shadow: 
+          0 4px 16px rgba(0, 0, 0, 0.1),
+          0 1px 0 rgba(255, 255, 255, 0.6) inset;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      
+      /* Main panel glass effect */
+      .col-sm-8 {
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(20px);
+        border-radius: 15px;
+        padding: 40px;
+        margin: 20px;
+        box-shadow: 
+          0 2px 12px rgba(0, 0, 0, 0.08),
+          0 1px 0 rgba(255, 255, 255, 0.4) inset;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      
+      /* Enhanced checkboxes with hover glow */
+      .checkbox {
+        margin: 5px 0;
+        padding: 6px 8px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+      }
+      
+      .checkbox:hover {
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 2px 8px rgba(104, 176, 230, 0.2);
+        border: 1px solid rgba(104, 176, 230, 0.3);
+      }
+      
+      .checkbox label {
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      
+      .checkbox:hover label {
+        color: #0066CC;
+      }
+      
+      /* changes color when checkbox is checked */
+      input[type=checkbox] {
+          accent-color: #4b8ccc;
+          width: 1.1em;
+          height: 1.1em;
+          background-color: rgba(255, 255, 255, 0.5); 
+          border: 1px solid rgba(104, 176, 230, 0.5);
+      }
+      
+      .project-scroll-box {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+        margin-bottom: 15px;
+      }
+      
+      .project-scroll-box::-webkit-scrollbar {
+        width: 14px;
+      }
+      
+      .project-scroll-box::-webkit-scrollbar-track {
+        background: rgba(200, 220, 240, 0.2);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+      }
+      
+      .project-scroll-box::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, 
+          rgba(104, 176, 230, 0.7) 0%, 
+          rgba(68, 150, 210, 0.7) 100%);
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 
+          0 2px 4px rgba(0, 0, 0, 0.2) inset,
+          0 1px 0 rgba(255, 255, 255, 0.5) inset;
+      }
+      
+      .project-scroll-box::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, 
+          rgba(124, 196, 250, 0.8) 0%, 
+          rgba(88, 170, 230, 0.8) 100%);
+      }
+      
+      .result-section {
+        background: linear-gradient(135deg, 
+          rgba(180, 240, 180, 0.4) 0%, 
+          rgba(160, 230, 160, 0.3) 100%);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(120, 200, 120, 0.4);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 
+          0 4px 20px rgba(0, 0, 0, 0.1),
+          0 1px 0 rgba(255, 255, 255, 0.6) inset;
+      }
+      
+      .infeasible-section {
+        background: linear-gradient(135deg, 
+          rgba(255, 200, 180, 0.4) 0%, 
+          rgba(255, 180, 160, 0.3) 100%);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 140, 100, 0.4);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 
+          0 4px 20px rgba(0, 0, 0, 0.1),
+          0 1px 0 rgba(255, 255, 255, 0.6) inset;
+      }
+      
+      pre, .shiny-text-output {
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(200, 220, 240, 0.4);
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 
+          0 2px 8px rgba(0, 0, 0, 0.08) inset,
+          0 1px 0 rgba(255, 255, 255, 0.4);
+      }
+      
+      .checkbox-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+      }
+      
+      .tableau-box {
+        overflow-x: auto;
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 15px;
+        border: 1px solid rgba(200, 220, 240, 0.5);
+        border-radius: 12px;
+        margin: 10px 0;
+        box-shadow: 
+          0 4px 12px rgba(0, 0, 0, 0.08),
+          0 1px 0 rgba(255, 255, 255, 0.5) inset;
+      }
+      
+      /* dataTables enhancement */
+      .dataTables_wrapper {
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
+        border-radius: 12px;
+        padding: 15px;
+        border: 1px solid rgba(200, 220, 240, 0.3);
+      }
+      
+      table.dataTable thead th {
+        background: linear-gradient(180deg, 
+          rgba(104, 176, 230, 0.2) 0%, 
+          rgba(80, 156, 210, 0.2) 100%);
+        border-bottom: 2px solid rgba(104, 176, 230, 0.4);
+      }
+      
+      table.dataTable tbody tr:hover {
+        background: rgba(104, 176, 230, 0.1) !important;
+      }
+      
+      /* divider basically */
+      hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          rgba(104, 176, 230, 0.4) 50%, 
+          transparent 100%);
+        box-shadow: 0 1px 2px rgba(104, 176, 230, 0.2);
+        margin: 25px 0;
+      }
+      
+      /* Modal styling */
+      .modal-content {
+        border-radius: 15px !important;
+        background: linear-gradient(135deg, 
+          rgba(255, 255, 255, 0.98) 0%, 
+          rgba(240, 248, 255, 0.95) 100%) !important;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.6) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+      }
+      
+      .modal-header {
+        background: linear-gradient(135deg, #0066CC 0%, #4b8ccc 100%);
+        color: white !important;
+        border-radius: 15px 15px 0 0 !important;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
+      }
+      
+      .modal-header .close {
+        color: white !important;
+        opacity: 0.8;
+        text-shadow: none;
+      }
+      
+      .modal-header .close:hover {
+        opacity: 1;
+      }
+      
+      .modal-body {
+        padding: 30px !important;
+      }
+      
+      .modal-body h3, .modal-body h4 {
+        margin-top: 15px;
+      }
+      
+      .modal-body ol li, .modal-body ul li {
+        margin: 10px 0;
+        line-height: 1.6;
+      }
+      
+      .modal-footer button {
+        font-family: 'Frutiger', 'Segoe UI', sans-serif !important;
+        background: linear-gradient(to bottom, 
+          rgba(104, 176, 230, 0.8), 
+          rgba(80, 156, 210, 0.8)) !important;
+        border: 1px solid rgba(104, 176, 230, 0.8) !important;
+        border-radius: 9999px !important;
+        color: #0d3d5c !important;
+        padding: 8px 24px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3) !important;
+      }
+      
+      .modal-footer button:hover {
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4) !important;
+        transform: translateY(-1px);
+      }
+      
+      /* Smooth transitions for all interactive elements */
+      * {
+        transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      }
