@@ -168,50 +168,51 @@ buildTableau <- function(selectedProjects, projectData, target){
   
   # constraints
   for (i in 1:numOfPollutants) {
-    A[i, ] <- finalProjects[[pollutantCols[i]]]
-    b[i] <- targets[i]
+    A[i, ] <- finalProjects[[pollutantCols[i]]] # contains selected projects emissions for that pollutant
+    b[i] <- targets[i] # target reduction for the pollutant
   }
+  
+  # sets RHS to -20 and fills diagonals with -1 (bounds)
   for(i in 11:(numOfProjects+10)){
     A[i,(i-10)] = -1
     b[i] = -20
   }
   
-  A=cbind(A,b)
+  # adds the RHS to A as last column and print
+  A = cbind(A,b)
   print(A)
   
-  # costs
+  # gets project costs
+  # appends to last row of A which will become the objective func
   c <- finalProjects$cost
-  
-  proj_costs = c()
-  for(i in 1:length(c)){
-    proj_costs = c(proj_costs, c[i])
-  }
-  proj_costs = c(proj_costs, 0)
+  proj_costs = c(c, 0)
   A = rbind(A, proj_costs)
   print(A)
   
-  # transpose to dual
+  # transpose tableau for dual form
+  # negates last row for simplex form
   A_t <- t(A)
   print(A_t)
   A_t[nrow(A_t),] = A_t[nrow(A_t),] * -1
   
-  slack_data = c()
+  # creates slack var identity mat for dual simplex
+  slack = c()
   for(i in 1:nrow(A_t)){
     for(j in 1:nrow(A_t)){
       if(i==j){
-        slack_data = c(slack_data, 1)
+        slack = c(slack, 1)
       }
       else {
-        slack_data = c(slack_data, 0)
+        slack = c(slack, 0)
       }
     }
   }
   
-  slack = matrix(data=slack_data, byrow=TRUE, ncol=numOfProjects+1)
-  print(slack)
+  slackk = matrix(data=slack, byrow=TRUE, ncol=numOfProjects+1)
+  print(slackk)
   
-  
-  A_t = cbind(A_t[,1:(10+numOfProjects)], slack, A_t[,ncol(A_t)])
+  # add slack to tableau
+  A_t = cbind(A_t[,1:(10+numOfProjects)], slackk, A_t[,ncol(A_t)])
   print(A_t)
   
   return(list(tableau = A_t, projectNames = finalProjects$name, projectNumbers = finalProjects$number, numOfProjects = numOfProjects))

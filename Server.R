@@ -3,6 +3,23 @@ server <- function(input, output, session) {
   
   options(max.print = .Machine$integer.max)
   
+  # reactive value to control showing main app
+  showMainApp <- reactiveVal(FALSE)
+  
+  # observes if user presses button to enter app
+  observeEvent(input$enterApp, {
+    showMainApp(TRUE)
+    
+    #sends message if true
+    session$sendCustomMessage("fadeGreeting", list())
+  })
+  
+  #conditional panel output
+  output$showMainApp <- reactive({
+    showMainApp()
+  })
+  outputOptions(output, "showMainApp", suspendWhenHidden = FALSE)
+  
   selectedProjects <- reactiveVal(integer(0))
   solverResult <- reactiveVal(NULL)
   initialTableau <- reactiveVal(NULL)
@@ -21,7 +38,7 @@ server <- function(input, output, session) {
     do.call(tagList, checkboxes)
   })
   
-  # the select all button
+  # observes if select all button is pressed, if yes, selects all projects
   observeEvent(input$selectAll, {
     selectedProjects(1:30)
     for (i in 1:30) {
@@ -29,7 +46,7 @@ server <- function(input, output, session) {
     }
   })
   
-  # the reset button
+  # unchecks all projects
   observeEvent(input$reset, {
     selectedProjects(integer(0))
     solverResult(NULL)
@@ -106,15 +123,15 @@ server <- function(input, output, session) {
     
     if (result$status == "OPTIMAL") {
       div(class = "result-section",
-          h3(style = "font-family: 'Nulshock'; font-size: 36px; font-weight: 700;text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8), 0 0 20px rgba(104, 176, 230, 0.3);", "Your Plan is FEASIBLE :)"),
-          h6(style = "color: #28a745;", 
+          h3(style = "-webkit-text-stroke-color: #28a745", "Your Plan is FEASIBLE :)", class = "result"),
+          h6(style = "color: #28a745; text-align:center;", 
              paste0("The cost of this optimal mitigation project is $", 
                     format(abs(result$Z), nsmall = 2, big.mark = ",")))
       )
     } else {
       div(class = "infeasible-section",
-          h3(style = "font-family: 'Nulshock'; font-size: 36px; font-weight: 700;text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8), 0 0 20px rgba(104, 176, 230, 0.3);", "Your Plan is INFEASIBLE :("),
-          h6(style = "color: #a72828",result$message)
+          h3(style = "-webkit-text-stroke-color: #a72828", "Your Plan is INFEASIBLE :(", class = "result"),
+          h6(style = "color: #a72828; text-align:center;",result$message)
       )
     }
   })
@@ -157,7 +174,7 @@ server <- function(input, output, session) {
               rownames = FALSE)
   })
   
-  # solution summary - CONVERTED TO TABLE
+  # solution summary
   output$BasicSolution <- renderDT({
     req(solverResult())
     res <- solverResult()
@@ -168,7 +185,7 @@ server <- function(input, output, session) {
     
     finalRow <- round(as.numeric(finalRow), 2)
     
-    # Create column names
+    # colnames since shiny removes it
     numVars <- length(finalRow)
     colNames <- paste0("x", 1:numVars)
     
@@ -230,7 +247,7 @@ server <- function(input, output, session) {
                                                c('#a0e6a04d', '#ff8c6466')))
   })
   
-  # initial tableau - CONVERTED TO TABLE
+  # initial tableau
   output$initialTableau <- renderDT({
     req(initialTableau())
     tableau <- round(initialTableau(), 4)
@@ -245,7 +262,7 @@ server <- function(input, output, session) {
               rownames = TRUE)
   })
   
-  # final tableau - ALREADY A TABLE
+  # final tableau
   output$finalTableau <- renderDT({
     req(solverResult())
     tableau <- round(solverResult()$result$finalTableau, 4)
@@ -279,7 +296,13 @@ server <- function(input, output, session) {
     do.call(tagList, iterations)
   })
   
-  # about us modal
+  # ends program 
+  observeEvent(input$exitButton, {
+    session$close()
+    stopApp()
+  })
+  
+  # user manual modal
   observeEvent(input$infoButton, {
     showModal(modalDialog(
       title = div(style = "text-align: center;",
@@ -287,11 +310,11 @@ server <- function(input, output, session) {
                      style = "color: #FFFFFF; margin: 5px 0px 5px 0px; font-size: 20px; font-family: 'Neuropol'; text-shadow: none;")),
       
       div(style = "padding: 10px;",
-          h3("Welcome to the Pollution Reduction Planner!", 
-             style = "color: #1948a6; font-family: 'Nulshock'; margin: 5px 0px 5px 0px;"),
+          h3("Welcome to the Greenvale!", 
+             style = "text-align: center; color: #1948a6; font-family: 'Nulshock'; margin: 5px 0px 5px 0px;"),
           
-          p("This application helps the City of Greenvale optimize pollution reduction 
-          strategies using the Simplex Method for linear programming."),
+          p("Currently, our city is suffering from mass pollution. With this site, you can help us choose which 
+          reduction strategies are the best using the Simplex Method for linear programming."),
           
           hr(),
           
@@ -330,13 +353,6 @@ server <- function(input, output, session) {
             tags$li(strong("Infeasible:"), " No combination of selected projects can meet all targets"),
             tags$li(strong("Basic Solution:"), " The optimal values for all decision variables"),
             tags$li(strong("Tableau:"), " The mathematical representation of the optimization problem")
-          ),
-          
-          hr(),
-          
-          div(style = "text-align: center; margin: 10px 0px 10px 0px;",
-              p(style = "color: #666; font-style: italic;",
-                "For a Greater Greenvile City!")
           )
       ),
       
@@ -350,12 +366,13 @@ server <- function(input, output, session) {
       )
     ))
   })
-
+  
+  
   observe({
     req(solverResult())
     result <- solverResult()$result
     
-    # Create outputs for all iterations
+    # create outputs for all iterations
     lapply(1:(length(result$iterTables)-1), function(i) {
       output[[paste0("iter_", i)]] <- renderDT({
         tableau <- round(result$iterTables[[i]]$tableau, 4)
