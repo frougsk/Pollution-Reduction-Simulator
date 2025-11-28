@@ -105,10 +105,10 @@ Projects are categorized by:
 
 ##### Feasible Solution ✅
     You'll see:
-    - **Total Cost**: Minimum budget needed
-    - **Basic Solution**: Optimal variable values (x1, x2, ..., xn)
-    - **Project Breakdown**: How many units of each project
-    - **Constraint Verification**: Check if all pollution targets are met
+    - Total Cost: Minimum budget needed
+    - Basic Solution: Optimal variable values (x1, x2, ..., xn)
+    - Project Breakdown: How many units of each project
+    - Constraint Verification: Check if all pollution targets are met
 
 ##### Infeasible Solution ❌
     - No combination of selected projects meets all constraints
@@ -182,5 +182,3 @@ output$myTable <- renderUI({
 
 ### Design Inspiration
 - **Frutiger Aero Style**: Windows Vista/7 design language
-
-![City of Greenvale](https://img.shields.io/badge/City%20of%20Greenvale-Pollution%20Free%20Future-4b8ccc?style=for-the-badge)
